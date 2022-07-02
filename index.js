@@ -1,13 +1,15 @@
 const express = require('express');
 const cors = require('cors');
+require('dotenv').config();
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
+
 const app = express();
-const port = process.env.PORT || 5000;git add <div className=""></div>
+const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
 
-const uri = "mongodb+srv://saif-abrar:x3XZo2T33Edf3N5z@cluster0.erehg.mongodb.net/?retryWrites=true&w=majority";
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.erehg.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 
@@ -57,7 +59,9 @@ async function run() {
     }
 }
 
-run().catch(console.dir)
+run().catch(console.dir);
+
+
 app.get('/', (req, res) => {
     res.send('Running server');
 });
